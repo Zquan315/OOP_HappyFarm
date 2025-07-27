@@ -1,0 +1,111 @@
+#include "Animal.h"
+#include "Pig.h"
+#include <string>
+#include <stdlib.h>
+#include <iostream>
+#include <math.h>
+#include <iomanip>
+using namespace std;
+
+Pig::Pig()
+{
+
+}
+void Pig::Ini()
+{
+	this->type = "Heo";
+	this->old = 0;
+	this->weight = 0;
+	this->id = rand() % 1001;
+	this->a = 50;
+	this->tuoitho =  5 + rand() % 6;;
+}
+Pig ::~Pig()
+{
+	delete this;
+}
+
+time_t Pig::CURRENT_TIME()
+{
+	time_t now = time(0);
+	return now;
+}
+
+
+int Pig::getID()
+{
+	return id;
+}
+
+string Pig::getType()
+{
+	return type;
+}
+
+int  Pig::getOld()
+{
+	return old;
+}
+void Pig::speak()
+{
+	cout << "Ottt Ottt!\n";
+}
+
+double ::Pig::getTuoitho()
+{
+	return tuoitho;
+}
+double& Pig::Full()
+{
+	
+	return this->a;
+}
+
+void Pig::getWeight()
+{
+	double a = 1 + rand() % 2;
+	this->weight = this->weight + a;
+}
+
+void Pig::xuat()
+{
+	cout << " " << id << "\t " << type << "\t "  << int(old)/60 << "\t  " << weight << "\t\t  " << tuoitho << "\t\t  " << this->Full() << endl;
+}
+
+pair<int, int> Pig::getViTri()
+{
+	pair<int, int> a;
+	a.first = rand() % 11;
+	a.second = rand() % 11;
+	return a;
+}
+double Pig::S_of_move()
+{
+	pair<int, int> vitri = this->getViTri();
+	pair<int, int> after;
+	after.first =  rand() % 11;
+	after.second =  rand() % 11;
+	int x = after.first - vitri.first;
+	int y = after.second - vitri.second;
+	double s = sqrt(pow(x, 2) + pow(y, 2));
+	return s;
+}
+
+void Pig::update(const time_t curr)
+{
+	if (this->Full() >= 100)
+		this->Full() = 100;
+	time_t now = time(0);
+	time_t k = now - curr;
+	this->old = int(k);
+	
+	this->Full() -= (double(old)/ (60 * 8760) * 7 / 8);
+	double s = this->S_of_move();
+	this->Full() -= (s * 7);
+}
+
+
+
+
+
+
